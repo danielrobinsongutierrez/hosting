@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Gastos Mejorado</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-wallet"></i> Control de Gastos Mejorado</h1>
+        </header>
+
+        <div class="dashboard">
+            <div class="balance-container">
+                <h2>Balance Actual</h2>
+                <div class="balance" id="balance">$0.00</div>
+            </div>
+
+            <div class="summary">
+                <div class="income">
+                    <h3>Ingresos</h3>
+                    <div class="amount income-amount" id="income">$0.00</div>
+                </div>
+                <div class="expense">
+                    <h3>Gastos</h3>
+                    <div class="amount expense-amount" id="expense">$0.00</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="charts-container">
+            <div class="chart-card">
+                <h2>Distribución de Gastos</h2>
+                <canvas id="expenseChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h2>Presupuesto vs Gastos</h2>
+                <canvas id="budgetChart"></canvas>
+            </div>
+        </div>
+
+        <div class="transaction-form">
+            <h2>Agregar Transacción</h2>
+            <form id="form">
+                <div class="form-control">
+                    <label for="description">Descripción</label>
+                    <input type="text" id="description" placeholder="Ej: Salario, Comida..." required>
+                </div>
+                <div class="form-control">
+                    <label for="amount">Monto</label>
+                    <input type="number" id="amount" placeholder="Ej: 100, -50..." required>
+                </div>
+                <div class="form-control">
+                    <label for="category">Categoría</label>
+                    <select id="category">
+                        <option value="comida">Comida</option>
+                        <option value="transporte">Transporte</option>
+                        <option value="vivienda">Vivienda</option>
+                        <option value="entretenimiento">Entretenimiento</option>
+                        <option value="salud">Salud</option>
+                        <option value="ingreso">Ingreso</option>
+                        <option value="otros">Otros</option>
+                    </select>
+                </div>
+                <div class="form-control">
+                    <label for="date">Fecha</label>
+                    <input type="date" id="date" required>
+                </div>
+                <button type="submit" class="btn">Agregar Transacción</button>
+            </form>
+        </div>
+
+        <div class="budget-form">
+            <h2>Configurar Presupuestos</h2>
+            <form id="budgetForm">
+                <div class="form-control">
+                    <label for="budgetCategory">Categoría</label>
+                    <select id="budgetCategory">
+                        <option value="comida">Comida</option>
+                        <option value="transporte">Transporte</option>
+                        <option value="vivienda">Vivienda</option>
+                        <option value="entretenimiento">Entretenimiento</option>
+                        <option value="salud">Salud</option>
+                        <option value="otros">Otros</option>
+                    </select>
+                </div>
+                <div class="form-control">
+                    <label for="budgetAmount">Monto Presupuestado</label>
+                    <input type="number" id="budgetAmount" placeholder="Ej: 500" required>
+                </div>
+                <button type="submit" class="btn">Guardar Presupuesto</button>
+            </form>
+        </div>
+
+        <div class="transactions">
+            <div class="transactions-header">
+                <h2>Historial de Transacciones</h2>
+                <button id="exportBtn" class="btn-export">
+                    <i class="fas fa-file-export"></i> Exportar a CSV
+                </button>
+            </div>
+            <div class="filters">
+                <select id="filter-category">
+                    <option value="todas">Todas las categorías</option>
+                    <option value="comida">Comida</option>
+                    <option value="transporte">Transporte</option>
+                    <option value="vivienda">Vivienda</option>
+                    <option value="entretenimiento">Entretenimiento</option>
+                    <option value="salud">Salud</option>
+                    <option value="ingreso">Ingreso</option>
+                    <option value="otros">Otros</option>
+                </select>
+                <input type="month" id="filter-month">
+            </div>
+            <ul id="transaction-list"></ul>
+        </div>
+
+        <div id="notification" class="notification hidden">
+            <span id="notificationMessage"></span>
+            <button id="closeNotification" class="close-btn">&times;</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
